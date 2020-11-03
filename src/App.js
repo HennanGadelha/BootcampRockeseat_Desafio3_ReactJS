@@ -9,12 +9,12 @@ import "./styles.css";
 
 function App() {
 
-
-  const [respositories, setRepositories] = useState([])
+        
+  const [repositories, setRepositories] = useState([])
 
 
   useEffect(() => {
-    api.get('respositories').then(response => {
+    api.get('repositories').then(response => {
       setRepositories(response.data);
     })
   }, [])
@@ -23,18 +23,18 @@ function App() {
   async function handleAddRepository() {
    
     const response = await api.post('/repositories', {
-      title: 'testando front',
-      url: 'testandofront.com',
+      title: 'Desafio ReactJS',
+      url: 'https://github.com/HennanGadelha/BootcampRockeseat_Desafio3_ReactJS',
       techs: ['node', 'react']
     })
 
-    setRepositories([...respositories, response.data]);
+    setRepositories([...repositories, response.data]);
 
   }
 
   async function handleRemoveRepository(id) {
       api.delete(`repositories/${id}`);
-      setRepositories(respositories.filter(repository => repository.id != id))
+      setRepositories(repositories.filter(repository => repository.id != id))
   }
 
   return (
@@ -42,7 +42,7 @@ function App() {
 
       <ul data-testid="repository-list">
 
-          {respositories.map(repository => (
+          {repositories.map(repository => (
 
                     <li key={repository.id}>
                       
@@ -51,7 +51,7 @@ function App() {
                       <button onClick={() => handleRemoveRepository(repository.id)}>
                         Remover
                       </button>
-                  </li>
+                   </li>
           ))}
       </ul>
 
